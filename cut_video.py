@@ -4,6 +4,13 @@ import os
 import time
 import pathlib
 
+
+def start():
+    check_number = check_entry_numer(number_frame_entry.get())
+    check_path = check_entry_path(path_file_entry.get())
+    printmessage(check_number, check_path)
+    cut_frame(number_frame_entry, path_file_entry)
+
 def cut_frame(number_frame, name_video_file):
     name_video_file = str(path_file_entry.get())
     cap = cv2.VideoCapture(name_video_file)
@@ -16,8 +23,8 @@ def cut_frame(number_frame, name_video_file):
     count = 0  # the number of the currently processed frame
     frames_taken = 0  # how many frames have already been drawn
     print("Z filmu o długości " + str(frame_count) + " ramek wyciągam " + str(input) + " ramek")
-    #os.mkdir(time.strftime("/%Y/%m/%d"))
-    createFile()
+
+    #createFile()
     while success:
         if (count == round(frames_taken * frames_to_skip)):
             print("Wyciągam " + str(frames_taken + 1) + ". ramkę, w wideo ma numer " + str(count) + " na " + str(
@@ -43,7 +50,6 @@ root.geometry("350x200")
 # for storing name and password
 count_frame = tk.StringVar()
 path_file = tk.StringVar()
-
 
 # defining a function that will
 # get the name and password and
@@ -75,7 +81,7 @@ path_file_entry = tk.Entry(root, textvariable=path_file, font=('helvetica', 14, 
 
 # creating a button using the widget
 # Button that will call the start function
-start_button = tk.Button(root, text='Start', command=cut_frame)
+start_button = tk.Button(root, text='Start', command=start)
 
 done_label = tk.Label(root, text='', font=('helvetica', 14, 'normal'))
 
@@ -96,13 +102,8 @@ root.mainloop()
 
 #create directory on desktop and save all phote, directory called date
 def createFile():
-    pathlib.Path(__file__).parent.resolve()
-
-def start(path_file_entry, number_frame_entry):
-    check_number = check_entry_numer(number_frame_entry)
-    check_path = check_entry_path(path_file_entry)
-    printmessage(check_number, check_path)
-    cut_frame(number_frame_entry, path_file_entry)
+    os.mkdir(time.strftime("/%Y/%m/%d"))
+    ##pathlib.Path(__file__).parent.resolve()
 
 #check enter to str
 def printmessage(check_entry_numer, check_entry_path):
@@ -114,8 +115,8 @@ def printmessage(check_entry_numer, check_entry_path):
         done_label.set("please enter the path file again")
     else:
         done_label.set("please enter the values again")
-#check enter  to number
 
+#check enter  to number
 def check_entry_numer(input_entry):
     input_entry.get()
     if input_entry:
