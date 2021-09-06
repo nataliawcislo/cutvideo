@@ -79,6 +79,21 @@ start_button = tk.Button(root, text='Start', command=cut_frame)
 
 done_label = tk.Label(root, text='', font=('helvetica', 14, 'normal'))
 
+
+# placing the label and entry in
+# the required position using grid
+# method
+number_frame_label.grid(row=0, column=0, sticky = 'W', padx=20,pady=5)
+number_frame_entry.grid(row=0, column=1)
+path_file_label.grid(row=1, column=0, sticky = 'W',  padx=20, pady=5)
+path_file_entry.grid(row=1, column=1)
+start_button.grid(row=2, column=1)
+done_label.grid(row=3, column=1, pady=5)
+# performing an infinite loop
+# for the window to display
+root.mainloop()
+
+
 #create directory on desktop and save all phote, directory called date
 def createFile():
     pathlib.Path(__file__).parent.resolve()
@@ -122,19 +137,3 @@ def check_entry_path(input_entry):
             return False
     else:
         return False
-
-# placing the label and entry in
-# the required position using grid
-# method
-number_frame_label.grid(row=0, column=0, sticky = 'W', padx=20,pady=5)
-number_frame_entry.grid(row=0, column=1)
-path_file_label.grid(row=1, column=0, sticky = 'W',  padx=20, pady=5)
-path_file_entry.grid(row=1, column=1)
-start_button.grid(row=2, column=1)
-done_label.grid(row=3, column=1, pady=5)
-# performing an infinite loop
-# for the window to display
-root.mainloop()
-
-
-
