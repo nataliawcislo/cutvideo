@@ -53,6 +53,7 @@ root.title("Cut video")
 # for storing name and password
 count_frame = tk.StringVar()
 path_file = tk.StringVar()
+massage_text = tk.StringVar()
 
 # defining a function that will
 # get the name and password and
@@ -61,46 +62,32 @@ path_file = tk.StringVar()
 def submit():
     c_frame = count_frame.get()
     p_file = path_file.get()
-
-
-    print("How much print the frame: " + c_frame)
-    print("Path file : " + p_file)
+    m_text = massage_text.get()
 
     c_frame.set("")
     p_file.set("")
+    m_text.set("")
 
-# creating a label for number of frame
-# name using widget Label
 number_frame_label = tk.Label(root, text='Number of frames', font=('helvetica', 14, 'normal'))
 
-# creating a entry for number_frame
-# name using widget Entry
 number_frame_entry = tk.Entry(root, textvariable=count_frame, font=('helvetica', 14, 'normal'))
 
-# creating a label for path_file
 path_file_label = tk.Label(root, text='File path', font=('helvetica', 14, 'normal'))
 
-# creating a entry for path_file_
 path_file_entry = tk.Entry(root, textvariable=path_file, font=('helvetica', 14, 'normal'))
 
-# creating a button using the widget
-# Button that will call the start function
 start_button = tk.Button(root, text='Start', command=start)
 
-done_label = tk.Label(root, text='', font=('helvetica', 14, 'normal'))
+done_label = tk.Label(root, textvariable=massage_text, font=('helvetica', 14, 'normal'))
 
 
-# placing the label and entry in
-# the required position using grid
-# method
 number_frame_label.grid(row=0, column=0, sticky = 'W', padx=20,pady=5)
 number_frame_entry.grid(row=0, column=1)
 path_file_label.grid(row=1, column=0, sticky = 'W',  padx=20, pady=5)
 path_file_entry.grid(row=1, column=1)
 start_button.grid(row=2, column=1)
 done_label.grid(row=3, column=1, pady=5)
-# performing an infinite loop
-# for the window to display
+
 root.mainloop()
 
 #windows for dialog file
