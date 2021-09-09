@@ -5,6 +5,39 @@ import time
 import pathlib
 
 
+#check enter to str
+def printmessage(check_entry_numer, check_entry_path):
+    if check_entry_numer == True and check_entry_path == True:
+        done_label.set("Your frames was saved in desktop")
+    if check_entry_numer == False:
+        done_label.set("please enter the number again")
+    if check_entry_path == False:
+        done_label.set("please enter the path file again")
+    else:
+        done_label.set("please enter the values again")
+
+#check enter  to number
+def check_entry_numer(input_entry):
+    input_entry.get()
+    if input_entry:
+        try:
+            int(input_entry)
+            return True
+        except ValueError:
+            return False
+    else:
+        return False
+
+#check enter to str
+def check_entry_path(input_entry):
+    if input_entry:
+        try:
+            str(input_entry)
+            return True
+        except:
+            return False
+    else:
+        return False
 def start():
     check_number = check_entry_numer(number_frame_entry.get())
     check_path = check_entry_path(path_file_entry.get())
@@ -105,36 +138,3 @@ def createFile():
     os.mkdir(time.strftime("/%Y/%m/%d"))
     ##pathlib.Path(__file__).parent.resolve()
 
-#check enter to str
-def printmessage(check_entry_numer, check_entry_path):
-    if check_entry_numer == True and check_entry_path == True:
-        done_label.set("Your frames was saved in desktop")
-    if check_entry_numer == False:
-        done_label.set("please enter the number again")
-    if check_entry_path == False:
-        done_label.set("please enter the path file again")
-    else:
-        done_label.set("please enter the values again")
-
-#check enter  to number
-def check_entry_numer(input_entry):
-    input_entry.get()
-    if input_entry:
-        try:
-            int(input_entry)
-            return True
-        except ValueError:
-            return False
-    else:
-        return False
-
-#check enter to str
-def check_entry_path(input_entry):
-    if input_entry:
-        try:
-            str(input_entry)
-            return True
-        except:
-            return False
-    else:
-        return False
