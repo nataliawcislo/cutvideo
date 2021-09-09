@@ -1,6 +1,4 @@
 import cv2
-import os
-from create_file import make_directory
 
 
 def cut_frame(path_file_entry, number_frame_entry):
@@ -14,7 +12,7 @@ def cut_frame(path_file_entry, number_frame_entry):
     count = 0  # the number of the currently processed frame
     frames_taken = 0  # how many frames have already been drawn
     print("Z filmu o długości " + str(frame_count) + " ramek wyciągam " + str(input) + " ramek")
-    path = make_directory()
+    image_list = []
     while success:
         if (count == round(frames_taken * frames_to_skip)):
             print("Wyciągam " + str(frames_taken + 1) + ". ramkę, w wideo ma numer " + str(count) + " na " + str(
@@ -22,8 +20,9 @@ def cut_frame(path_file_entry, number_frame_entry):
             milisecond = round(count * 1000 / fps)
             print("Ramka pochodzi z " + str(milisecond) + " milisekundy nagrania")
             frames_taken += 1
-            cv2.imwrite(os.path.join(path,"frame%d.jpg" % count), image)
+            #cv2.imwrite(os.path.join(path,"frame%d.jpg" % count), image)
         success, image = cap.read()
+        image_list.append(image)
         count += 1
     cap.release()
-    return path
+    return image_list

@@ -1,4 +1,5 @@
 import os
+import cv2
 import time
 import tkinter as tk
 from tkinter import filedialog as fd
@@ -20,7 +21,7 @@ def printmessage(check_entry_numer, check_entry_path):
 def check_entry_numer(input_entry):
     if input_entry:
         try:
-            int(input_entry)
+            int(input_entry) >= 2
             return True
         except ValueError:
             return False
@@ -42,9 +43,8 @@ def start():
     check_number = check_entry_numer(number_frame_entry.get())
     check_path = check_entry_path(path_file_entry.get())
     printmessage(check_number, check_path)
-    path_dir_frame = cut_frame(number_frame_entry, path_file_entry)
-    save_file(path_dir_frame)
-
+    imageList = cut_frame(number_frame_entry, path_file_entry)
+    save_file(imageList.count(), imageList)
 
 root = tk.Tk()
 root.geometry("350x200")
@@ -69,7 +69,6 @@ def submit():
 
     c_frame.set("")
     p_file.set("")
-
 
 # creating a label for number of frame
 # name using widget Label
@@ -105,15 +104,9 @@ done_label.grid(row=3, column=1, pady=5)
 # for the window to display
 root.mainloop()
 
-
-#create directory on desktop and save all phote, directory called date
-def file_dialog():
-    os.mkdir(time.strftime("/%Y/%m/%d"))
-    ##pathlib.Path(__file__).parent.resolve()
-
-def save_file(self, path):
-    filename = fd.asksaveasfilename(filetypes=[("Plik tekstowy", "*.txt")],
-                                    defaultextension="*.txt")  # wywołanie okna dialogowego save file
-    if filename:
-        with open(filename, "w", -1, "utf-8") as file:
-            file.write(self.text.get(1.0, tk.END))
+#windows for dialog file
+def save_file(count, imageList):
+    wybrany_folder = fd.askdirectory()
+    if wybrany_folder:
+        for image in imageList:
+            cv2.imwrite(os.path.join(wybrany_folder, "frame-namei%d.jpg" % count), image)
