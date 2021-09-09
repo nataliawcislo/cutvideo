@@ -1,11 +1,119 @@
-import cv2
+import os
+import time
+import tkinter as tk
+from tkinter import filedialog as fd
+from cut_video import cut_frame
 
-vidcap = cv2.VideoCapture('video1.mp4')
-success,image = vidcap.read()
-count = 0
 
-while success:
-  cv2.imwrite("frame%d.jpg" % count, image)     # save frame as JPEG file      
-  success,image = vidcap.read()
-  print('Read a new frame: ', success)
-  count += 1
+#check enter to str
+def printmessage(check_entry_numer, check_entry_path):
+    if check_entry_numer == True and check_entry_path == True:
+        done_label.text.set("Your frames was saved in desktop")
+    if check_entry_numer == False:
+        done_label.text.set("please enter the number again")
+    if check_entry_path == False:
+        done_label.text.set("please enter the path file again")
+    else:
+        done_label.text.set("please enter the values again")
+
+#check enter  to number
+def check_entry_numer(input_entry):
+    if input_entry:
+        try:
+            int(input_entry)
+            return True
+        except ValueError:
+            return False
+    else:
+        return False
+
+#check enter to str
+def check_entry_path(input_entry):
+    if input_entry:
+        try:
+            str(input_entry)
+            return True
+        except:
+            return False
+    else:
+        return False
+
+def start():
+    check_number = check_entry_numer(number_frame_entry.get())
+    check_path = check_entry_path(path_file_entry.get())
+    printmessage(check_number, check_path)
+    path_dir_frame = cut_frame(number_frame_entry, path_file_entry)
+    save_file(path_dir_frame)
+
+
+root = tk.Tk()
+root.geometry("350x200")
+root.title("Cut video")
+
+# declaring string variable
+# for storing name and password
+count_frame = tk.StringVar()
+path_file = tk.StringVar()
+
+# defining a function that will
+# get the name and password and
+# print them on the screen
+
+def submit():
+    c_frame = count_frame.get()
+    p_file = path_file.get()
+
+
+    print("How much print the frame: " + c_frame)
+    print("Path file : " + p_file)
+
+    c_frame.set("")
+    p_file.set("")
+
+
+# creating a label for number of frame
+# name using widget Label
+number_frame_label = tk.Label(root, text='Number of frames', font=('helvetica', 14, 'normal'))
+
+# creating a entry for number_frame
+# name using widget Entry
+number_frame_entry = tk.Entry(root, textvariable=count_frame, font=('helvetica', 14, 'normal'))
+
+# creating a label for path_file
+path_file_label = tk.Label(root, text='File path', font=('helvetica', 14, 'normal'))
+
+# creating a entry for path_file_
+path_file_entry = tk.Entry(root, textvariable=path_file, font=('helvetica', 14, 'normal'))
+
+# creating a button using the widget
+# Button that will call the start function
+start_button = tk.Button(root, text='Start', command=start)
+
+done_label = tk.Label(root, text='', font=('helvetica', 14, 'normal'))
+
+
+# placing the label and entry in
+# the required position using grid
+# method
+number_frame_label.grid(row=0, column=0, sticky = 'W', padx=20,pady=5)
+number_frame_entry.grid(row=0, column=1)
+path_file_label.grid(row=1, column=0, sticky = 'W',  padx=20, pady=5)
+path_file_entry.grid(row=1, column=1)
+start_button.grid(row=2, column=1)
+done_label.grid(row=3, column=1, pady=5)
+# performing an infinite loop
+# for the window to display
+root.mainloop()
+
+
+#create directory on desktop and save all phote, directory called date
+def file_dialog():
+    os.mkdir(time.strftime("/%Y/%m/%d"))
+    ##pathlib.Path(__file__).parent.resolve()
+
+def save_file(self, path):
+    filename = fd.asksaveasfilename(filetypes=[("Plik tekstowy", "*.txt")],
+                                    defaultextension="*.txt")  # wywołanie okna dialogowego save file
+    if filename:
+        with open(filename, "w", -1, "utf-8") as file:
+            file.write(self.text.get(1.0, tk.END))
