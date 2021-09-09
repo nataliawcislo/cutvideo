@@ -5,23 +5,32 @@ from tkinter import filedialog as fd
 from cut_video import cut_frame
 
 
+#windows for dialog file
+def save_file(imageList):
+    wybrany_folder = fd.askdirectory()
+    if wybrany_folder:
+        number_frame = 0
+        for image in imageList:
+            cv2.imwrite(os.path.join(wybrany_folder, "frame-namei%d.jpg" %  number_frame), image)
+            number_frame += 1
+
 #check enter to str
 def printmessage(check_entry_numer, check_entry_path):
     if check_entry_numer == True and check_entry_path == True:
-        done_label.text.set("Your frames was saved in desktop")
+        done_label.setvar("Your frames was saved in desktop")
     if check_entry_numer == False:
-        done_label.text.set("please enter the number again")
+        done_label.setvar("please enter the number again")
     if check_entry_path == False:
-        done_label.text.set("please enter the path file again")
+        done_label.setvar("please enter the path file again")
     else:
-        done_label.text.set("please enter the values again")
+        done_label.setvar("please enter the values again")
+
 
 #check enter  to number
 def check_entry_numer(input_entry):
     if input_entry:
         try:
-            int(input_entry) >= 2
-            return True
+            return int(input_entry) >= 2
         except ValueError:
             return False
     else:
@@ -43,7 +52,7 @@ def start():
     check_path = check_entry_path(path_file_entry.get())
     printmessage(check_number, check_path)
     imageList = cut_frame(number_frame_entry, path_file_entry)
-    save_file(imageList.count(), imageList)
+    #save_file(imageList.count(), imageList)
 
 root = tk.Tk()
 root.geometry("350x200")
@@ -66,7 +75,7 @@ def submit():
 
     c_frame.set("")
     p_file.set("")
-    m_text.set("")
+    m_text.set("zxdfghjkl")
 
 number_frame_label = tk.Label(root, text='Number of frames', font=('helvetica', 14, 'normal'))
 
@@ -90,11 +99,4 @@ done_label.grid(row=3, column=1, pady=5)
 
 root.mainloop()
 
-#windows for dialog file
-def save_file(imageList):
-    wybrany_folder = fd.askdirectory()
-    if wybrany_folder:
-        number_frame = 0
-        for image in imageList:
-            cv2.imwrite(os.path.join(wybrany_folder, "frame-namei%d.jpg" %  number_frame), image)
-            number_frame += 1
+

@@ -1,7 +1,7 @@
 import cv2
 
 
-def cut_frame(path_file_entry, number_frame_entry):
+def cut_frame(number_frame_entry, path_file_entry):
     name_video_file = str(path_file_entry.get())
     cap = cv2.VideoCapture(name_video_file)
     success, image = cap.read()
