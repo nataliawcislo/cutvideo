@@ -1,6 +1,5 @@
 import os
 import cv2
-import time
 import tkinter as tk
 from tkinter import filedialog as fd
 from cut_video import cut_frame
@@ -105,8 +104,10 @@ done_label.grid(row=3, column=1, pady=5)
 root.mainloop()
 
 #windows for dialog file
-def save_file(count, imageList):
+def save_file(imageList):
     wybrany_folder = fd.askdirectory()
     if wybrany_folder:
+        number_frame = 0
         for image in imageList:
-            cv2.imwrite(os.path.join(wybrany_folder, "frame-namei%d.jpg" % count), image)
+            cv2.imwrite(os.path.join(wybrany_folder, "frame-namei%d.jpg" %  number_frame), image)
+            number_frame += 1
