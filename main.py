@@ -17,10 +17,10 @@ def save_file(imageList):
 #check enter to str
 def printmessage(check_entry_numer, check_entry_path):
     if check_entry_numer == True and check_entry_path == True:
-        done_label.config(text = "Your frames was saved in desktop")
-    if check_entry_numer == False:
-        done_label.config(text = "please enter the number again")
-    if check_entry_path == False:
+        done_label.config(text = "Done!")
+    if check_entry_numer == False and check_entry_path == True:
+        done_label.config(text = "Please enter the number again")
+    if check_entry_numer == True and check_entry_path == False:
         done_label.config(text = "please enter the path file again")
     else:
         done_label.config(text = "please enter the values again")
@@ -30,7 +30,8 @@ def printmessage(check_entry_numer, check_entry_path):
 def check_entry_numer(input_entry):
     if input_entry:
         try:
-            return int(input_entry) >= 2
+            if int(input_entry) >= 2:
+                return True
         except ValueError:
             return False
     else:
@@ -51,8 +52,9 @@ def start():
     check_number = check_entry_numer(number_frame_entry.get())
     check_path = check_entry_path(path_file_entry.get())
     printmessage(check_number, check_path)
-    imageList = cut_frame(number_frame_entry, path_file_entry)
-    save_file(imageList.count(), imageList)
+    #imageList = cut_frame(number_frame_entry, path_file_entry)
+
+    #save_file(imageList.count(), imageList)
 
 root = tk.Tk()
 root.geometry("450x200")
