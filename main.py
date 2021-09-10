@@ -17,13 +17,13 @@ def save_file(imageList):
 #check enter to str
 def printmessage(check_entry_numer, check_entry_path):
     if check_entry_numer == True and check_entry_path == True:
-        done_label.setvar("Your frames was saved in desktop")
+        done_label.config(text = "Your frames was saved in desktop")
     if check_entry_numer == False:
-        done_label.setvar("please enter the number again")
+        done_label.config(text = "please enter the number again")
     if check_entry_path == False:
-        done_label.setvar("please enter the path file again")
+        done_label.config(text = "please enter the path file again")
     else:
-        done_label.setvar("please enter the values again")
+        done_label.config(text = "please enter the values again")
 
 
 #check enter  to number
@@ -52,10 +52,10 @@ def start():
     check_path = check_entry_path(path_file_entry.get())
     printmessage(check_number, check_path)
     imageList = cut_frame(number_frame_entry, path_file_entry)
-    #save_file(imageList.count(), imageList)
+    save_file(imageList.count(), imageList)
 
 root = tk.Tk()
-root.geometry("350x200")
+root.geometry("450x200")
 root.title("Cut video")
 
 # declaring string variable
@@ -74,7 +74,6 @@ def submit():
 
     c_frame.set("")
     p_file.set("")
-    massage_text.set("zxdfghjkl")
 
 number_frame_label = tk.Label(root, text='Number of frames', font=('helvetica', 14, 'normal'))
 
@@ -84,19 +83,26 @@ path_file_label = tk.Label(root, text='File path', font=('helvetica', 14, 'norma
 
 path_file_entry = tk.Entry(root, textvariable=path_file, font=('helvetica', 14, 'normal'))
 
-start_button = tk.Button(root, text='Start', command=start)
+start_button = tk.Button(root, text='Start', highlightbackground = "Blue", highlightthickness = 2, command=start )
 
-done_label = tk.Label(root, textvariable=massage_text, font=('helvetica', 14, 'normal'))
+done_label = tk.Label(root, text="", font=('helvetica', 14, 'normal'))
 
+done_label.pack()
 
-number_frame_label.grid(row=0, column=0, sticky = 'W', padx=20,pady=5)
-number_frame_entry.grid(row=0, column=1)
-path_file_label.grid(row=1, column=0, sticky = 'W',  padx=20, pady=5)
+number_frame_label.pack()
+number_frame_entry.pack()
+path_file_label.pack()
+path_file_entry.pack()
+start_button.pack()
+done_label.pack()
+
+number_frame_label.grid(row=0, column=0, sticky = 'W', padx=10,pady=5)
+number_frame_entry.grid(row=0, column=1, padx=30)
+path_file_label.grid(row=1, column=0, sticky = 'W',  padx=10, pady=5)
 path_file_entry.grid(row=1, column=1)
 start_button.grid(row=2, column=1)
-done_label.grid(row=3, column=1, pady=5)
-
+done_label.grid(row=3, column=1, columnspan=2, padx=10, pady=20)
 
 root.mainloop()
-done_label.pack()
+
 
