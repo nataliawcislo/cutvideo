@@ -1,0 +1,10 @@
+decorator==5.0.9
+Interface==2.11.1
+numpy==1.21.1
+opencv-python==4.5.3.56
+
+self==2020.12.3
+tk==0.1.0
+zope.event==4.5.0
+zope.interface==5.4.0
+zope.schema==6.1.0

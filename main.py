@@ -71,11 +71,10 @@ massage_text = tk.StringVar()
 def submit():
     c_frame = count_frame.get()
     p_file = path_file.get()
-    m_text = massage_text.get()
 
     c_frame.set("")
     p_file.set("")
-    m_text.set("zxdfghjkl")
+    massage_text.set("zxdfghjkl")
 
 number_frame_label = tk.Label(root, text='Number of frames', font=('helvetica', 14, 'normal'))
 
@@ -97,6 +96,7 @@ path_file_entry.grid(row=1, column=1)
 start_button.grid(row=2, column=1)
 done_label.grid(row=3, column=1, pady=5)
 
-root.mainloop()
 
+root.mainloop()
+done_label.pack()
 
