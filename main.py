@@ -14,6 +14,20 @@ def save_file(imageList):
             cv2.imwrite(os.path.join(wybrany_folder, "frame-namei%d.jpg" %  number_frame), image)
             number_frame += 1
 
+def select_file():
+    filetypes = (
+        ("video file", '*.mp4')
+    )
+
+    filename = fd.askopenfilename(
+        title ="Open a file",
+        initiadir = '/',
+        filetypes = filetypes,
+    )
+    return True
+
+
+
 #check enter to str
 def printmessage(check_entry_numer, check_entry_path):
     if check_entry_numer == True and check_entry_path == True:
@@ -38,23 +52,23 @@ def check_entry_numer(input_entry):
         return False
 
 #check enter to str
-def check_entry_path(input_entry):
-    if input_entry:
-        try:
-            str(input_entry)
-            return True
-        except:
-            return False
-    else:
-        return False
+# def check_entry_path(input_entry):
+#     if input_entry:
+#         try:
+#             str(input_entry)
+#             return True
+#         except:
+#             return False
+#     else:
+#         return False
 
 def start():
     check_number = check_entry_numer(number_frame_entry.get())
-    check_path = check_entry_path(path_file_entry.get())
-    printmessage(check_number, check_path)
-    #imageList = cut_frame(number_frame_entry, path_file_entry)
-
-    #save_file(imageList.count(), imageList)
+    #check_path = check_entry_path(path_file_entry.get())
+    move = select_file()
+    printmessage(check_number, move)
+    imageList = cut_frame(number_frame_entry, move)
+    save_file(imageList.count(), imageList)
 
 root = tk.Tk()
 root.geometry("450x200")
@@ -83,7 +97,7 @@ number_frame_entry = tk.Entry(root, textvariable=count_frame, font=('helvetica',
 
 path_file_label = tk.Label(root, text='File path', font=('helvetica', 14, 'normal'))
 
-path_file_entry = tk.Entry(root, textvariable=path_file, font=('helvetica', 14, 'normal'))
+path_file_button = tk.Button(root, text='Select file', highlightbackground = "Blue", highlightthickness = 2, command=select_file )
 
 start_button = tk.Button(root, text='Start', highlightbackground = "Blue", highlightthickness = 2, command=start )
 
